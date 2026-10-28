@@ -1,0 +1,205 @@
+/* Unde-l văd – stiluri */
+:root{--y:#FFD21F;--bg:#000;--panel:#121212;--panel2:#1a1a1a;--ink:#fff;--soft:rgba(255,255,255,.8);--muted:rgba(255,255,255,.55);--line:rgba(255,255,255,.12);--glass:rgba(0,0,0,.5);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+body.locked{overflow:hidden}
+.bb{font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-weight:400}
+
+/* ==================== INTRO (tot ecranul) ==================== */
+#intro{position:fixed;inset:0;background:#000;z-index:50;transition:opacity .5s}
+.crtlayer{position:absolute;inset:0}
+.bars{position:absolute;inset:0;display:flex;flex-direction:column}
+.row1{flex:3;display:flex}.row1 i{flex:1}
+.row2{flex:.6;display:flex}.row2 i{flex:1}
+.row3{flex:1.4;display:flex}.row3 .seg{flex:1}
+.seed{position:absolute;left:14.2857%;width:14.2857%;top:0;height:60%;background:var(--y);transform-origin:50% 50%}
+.full{position:absolute;inset:0;background:var(--y);opacity:0;display:flex;align-items:center;justify-content:center}
+.full b{font-weight:800;color:#111;font-size:clamp(34px,7vw,96px);letter-spacing:-1px;white-space:pre}
+.glow{position:absolute;left:0;right:0;top:50%;height:8px;margin-top:-4px;background:#fff;box-shadow:0 0 26px 6px rgba(255,255,255,.9);opacity:0;transform-origin:50% 50%}
+.waiting{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;font-family:'Courier New',monospace;color:#eceff1;font-size:20px;letter-spacing:1px}
+.waiting.on{opacity:1}
+.cursor{display:inline-block;width:.55em;height:1em;background:#eceff1;vertical-align:-.15em;margin-left:4px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+#skipIntro{position:fixed;right:20px;bottom:20px;z-index:51;background:rgba(0,0,0,.45);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:9px 18px;font-size:13px;cursor:pointer;font-family:inherit}
+
+/* ==================== BARA DE SUS ==================== */
+#app{opacity:0;transition:opacity .7s}
+#app.on{opacity:1}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:20;transition:background .3s,border-color .3s;border-bottom:1px solid transparent;background:linear-gradient(180deg,rgba(0,0,0,.75),transparent)}
+.topbar.solid{background:#0c0c0c;border-bottom-color:var(--line)}
+.topin{max-width:1280px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;gap:20px}
+.brand{font-size:36px;line-height:1;color:var(--y);white-space:nowrap;cursor:pointer;background:none;border:0;padding:0}
+.searchwrap{flex:1;position:relative}
+.search{display:flex;align-items:center;gap:10px;background:#fff;border-radius:6px;padding:0 14px;height:42px;color:#111}
+.search input{flex:1;border:0;background:transparent;font:inherit;font-size:15px;color:#111;outline:none}
+.search input::placeholder{color:#777}
+.iconbtn{width:42px;height:42px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:var(--glass);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.iconbtn:hover{border-color:var(--y);color:var(--y)}
+.region{font-size:13px;font-weight:600;color:var(--soft);white-space:nowrap}
+
+/* ==================== HERO CU TRAILER ==================== */
+.hero{position:relative;height:100vh;min-height:560px;overflow:hidden;background:#000}
+.hbg{position:absolute;inset:0;background:#000 center/cover no-repeat}
+#heroPlayer,.hbg iframe{position:absolute;top:50%;left:50%;width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;transform:translate(-50%,-50%) scale(1.22);pointer-events:none;border:0;opacity:0;transition:opacity 1s}
+.hbg.playing iframe{opacity:1}
+.hbg::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.4) 45%,rgba(0,0,0,.1) 75%),
+  linear-gradient(0deg,#000 0%,rgba(0,0,0,.6) 18%,transparent 45%)}
+.hcontent{position:relative;z-index:1;height:100%;max-width:1280px;margin:0 auto;padding:0 32px 90px;display:flex;flex-direction:column;justify-content:flex-end}
+.kick{font-size:13px;color:var(--y);font-weight:700;letter-spacing:2px;margin:0 0 8px}
+.htitle{font-size:clamp(56px,9vw,128px);line-height:.88;color:var(--y);margin:0 0 14px;max-width:11ch;text-shadow:0 4px 30px rgba(0,0,0,.5)}
+.hmeta{font-size:15px;font-weight:600;color:var(--soft);display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.hmeta span+span::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--muted);margin-right:10px;vertical-align:3px}
+.hdesc{font-size:17px;line-height:1.55;color:var(--soft);max-width:52ch;margin:0 0 20px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hwhere{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.hwhere small{font-size:13px;color:var(--muted)}
+.hlogos{display:flex;gap:8px}
+.hlogos img{width:40px;height:40px;border-radius:9px;box-shadow:0 0 0 2px rgba(255,255,255,.15)}
+.hlogos img.mine{box-shadow:0 0 0 3px var(--y)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;font:inherit;font-size:15px;font-weight:700;border-radius:8px;padding:13px 24px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:transform .15s,background .2s}
+.btn:active{transform:scale(.97)}
+.btn.y{background:var(--y);color:#111}
+.btn.g{background:rgba(255,255,255,.16);color:#fff;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn.g:hover{background:rgba(255,255,255,.26)}
+
+/* ==================== PAGINA PLAYER ==================== */
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+#explore{padding-top:84px;scroll-margin-top:0}
+.stage{display:grid;grid-template-columns:minmax(0,2.15fr) minmax(0,1fr);background:var(--panel);border-radius:4px;overflow:hidden}
+.player{position:relative;aspect-ratio:16/9;background:#000}
+.player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.facade{position:absolute;inset:0;border:0;padding:0;cursor:pointer;background:#000 center/cover no-repeat;width:100%}
+.facade::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent 50%)}
+.bigplay{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;border:3px solid #fff;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:1;transition:transform .2s,background .2s}
+.bigplay::after{content:"";border-left:26px solid #fff;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:7px}
+.facade:hover .bigplay{transform:scale(1.08);background:var(--y);border-color:var(--y)}
+.facade:hover .bigplay::after{border-left-color:#111}
+.facade .ftag{position:absolute;left:20px;bottom:18px;z-index:1;font-size:14px;font-weight:600;color:#fff}
+.noTrailer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:15px;text-align:center;padding:20px}
+.side{padding:22px 24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sidehead{display:flex;gap:14px;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.sidehead .sp{width:78px;flex:none;aspect-ratio:2/3;border-radius:6px;overflow:hidden;background:var(--panel2)}
+.sidehead .sp img{width:100%;height:100%;object-fit:cover;display:block}
+.sidehead b{display:block;font-size:16px;font-weight:700;line-height:1.3}
+.sidehead small{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.stitle{font-size:22px;font-weight:800;line-height:1.2;margin:0;letter-spacing:-.3px}
+.sdesc{font-size:14px;line-height:1.55;color:var(--soft);margin:0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.sdesc.open{-webkit-line-clamp:unset}
+.more{align-self:center;background:none;border:0;color:var(--soft);cursor:pointer;font-size:18px;padding:0 6px}
+.where h4{font-size:13px;font-weight:700;margin:0 0 10px;color:#fff}
+.wgrp{margin-bottom:10px}
+.wgrp p{font-size:11px;color:var(--muted);margin:0 0 6px;letter-spacing:.5px;font-weight:600}
+.logos{display:flex;flex-wrap:wrap;gap:6px}
+.logo{display:flex;align-items:center;gap:7px;background:var(--panel2);border-radius:999px;padding:4px 10px 4px 4px;font-size:12px;font-weight:600}
+.logo img{width:24px;height:24px;border-radius:6px}
+.logo.mine{background:var(--y);color:#111}
+.none{font-size:13px;color:var(--muted)}
+.under{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 0 4px}
+.under small{font-size:13px;color:var(--muted);margin-right:4px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--soft);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .2s}
+.chip:hover{border-color:rgba(255,255,255,.4)}
+.chip.on{background:var(--y);color:#111;border-color:var(--y)}
+.rowsec{padding:30px 0 4px}
+.rowtitle{display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:22px;font-weight:700}
+.rowtitle::before{content:"";width:4px;height:26px;background:var(--y);border-radius:2px}
+.rowtitle small{font-size:13px;font-weight:400;color:var(--muted);margin-left:6px}
+.rowwrap{position:relative}
+.strip{display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth;padding-bottom:8px}
+.strip::-webkit-scrollbar{display:none}
+.vcard{flex:0 0 340px;border:0;padding:0;background:none;color:inherit;text-align:left;cursor:pointer;font-family:inherit}
+.thumb{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--panel2) center/cover no-repeat;transition:transform .25s}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),transparent 50%)}
+.vcard:hover .thumb{transform:scale(1.02)}
+.vcard.on .thumb{box-shadow:0 0 0 3px var(--y)}
+.tplay{position:absolute;left:12px;bottom:12px;z-index:1;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+.tplay i{width:30px;height:30px;border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.tplay i::after{content:"";border-left:9px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:2px}
+.vcard:hover .tplay i{background:var(--y);border-color:var(--y)}
+.vcard:hover .tplay i::after{border-left-color:#111}
+.vbadge{position:absolute;right:10px;top:10px;z-index:1;font-size:11px;font-weight:700;background:var(--y);color:#111;padding:3px 7px;border-radius:4px}
+.vname{font-size:15px;font-weight:600;margin:10px 2px 0;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vsub{font-size:12px;color:var(--muted);margin:4px 2px 0}
+.arrow{position:absolute;top:calc((340px * 9 / 16) / 2 - 26px);width:44px;height:52px;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.65);color:#fff;font-size:24px;cursor:pointer;z-index:2;border-radius:4px}
+.arrow:hover{color:var(--y);border-color:var(--y)}
+.arrow.l{left:-10px}.arrow.r{right:-10px}
+.empty{font-size:14px;color:var(--muted);padding:10px 2px}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--muted);border-top-color:var(--y);border-radius:50%;animation:spn .7s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes spn{to{transform:rotate(360deg)}}
+footer{max-width:1280px;margin:0 auto;padding:40px 32px 50px;font-size:12px;color:var(--muted);line-height:1.6}
+button:focus-visible,input:focus-visible{outline:2px solid var(--y);outline-offset:3px}
+@media (max-width:900px){
+  .topin,.wrap,.hcontent,footer{padding-left:16px;padding-right:16px}
+  .topin{flex-wrap:wrap;gap:10px}
+  .brand{font-size:30px}
+  #explore{padding-top:130px}
+  .stage{grid-template-columns:1fr}
+  .vcard{flex-basis:260px}
+  .arrow{display:none}
+}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- Listă de rezultate sub căutare ---------- */
+.search input::-webkit-search-cancel-button{cursor:pointer}
+.suggest{position:absolute;left:0;right:0;top:calc(100% + 6px);background:#141414;border:1px solid var(--line);border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.7);overflow:hidden;max-height:70vh;overflow-y:auto;z-index:30}
+.suggest[hidden]{display:none}
+.sgitem{display:flex;align-items:center;gap:12px;width:100%;padding:8px 12px;background:none;border:0;border-bottom:1px solid var(--line);color:#fff;text-align:left;cursor:pointer;font:inherit}
+.sgitem:hover,.sgitem:focus{background:#222;outline:none}
+.sgp{width:36px;height:54px;flex:none;border-radius:4px;overflow:hidden;background:#222}
+.sgp img{width:100%;height:100%;object-fit:cover;display:block}
+.sgt b{display:block;font-size:14px;font-weight:600}
+.sgt small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.sgall{display:block;width:100%;padding:12px;background:none;border:0;color:var(--y);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.sgall:hover,.sgall:focus{background:#222;outline:none}
+.sgmsg{margin:0;padding:14px;font-size:13px;color:var(--muted)}
+
+/* ---------- Buton când browserul nu pornește singur trailerul ---------- */
+.heroplay{position:absolute;right:32px;bottom:90px;z-index:2;display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.55);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:10px 18px 10px 10px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.heroplay[hidden]{display:none}
+.heroplay i{width:32px;height:32px;border-radius:50%;background:var(--y);display:flex;align-items:center;justify-content:center}
+.heroplay i::after{content:"";border-left:11px solid #111;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.heroplay:hover{border-color:var(--y)}
+@media (max-width:900px){.searchwrap{order:3;flex-basis:100%}.heroplay{right:16px;bottom:80px}}
+
+/* ---------- Carusel pe prima pagină ---------- */
+.hcontent{transition:opacity .45s ease}
+.hcontent.fade{opacity:0}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+.hbg{transform-origin:60% 40%}
+.hnav{position:absolute;right:32px;bottom:28px;z-index:2;display:flex;align-items:center;gap:10px}
+.hcount{font-size:13px;font-weight:700;color:var(--soft);min-width:44px;text-align:right}
+.harrow{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font-size:22px;line-height:1;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.harrow:hover{border-color:var(--y);color:var(--y)}
+.hdots{display:flex;gap:6px}
+.hdot{width:18px;height:4px;padding:0;border:0;border-radius:2px;background:rgba(255,255,255,.3);cursor:pointer;position:relative;overflow:hidden;transition:width .3s}
+.hdot.on{width:40px}
+.hdot i{position:absolute;inset:0;background:var(--y);transform-origin:left;transform:scaleX(0)}
+.hdot.on i{transform:scaleX(1)}
+@keyframes dotfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.heroplay{bottom:84px}
+
+/* ---------- Poster când trailerul nu poate fi redat ---------- */
+.pblocked{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:28px;padding:24px;overflow:hidden}
+.pbg{position:absolute;inset:-20px;background:center/cover no-repeat;filter:blur(18px) brightness(.45)}
+.pposter{position:relative;height:82%;max-height:420px;aspect-ratio:2/3;object-fit:cover;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+.ptext{position:relative;max-width:260px;display:flex;flex-direction:column;gap:12px}
+.ptext b{font-size:16px;line-height:1.4}
+.pblink{color:var(--y);font-size:14px;font-weight:700;text-decoration:none}
+.pblink:hover{text-decoration:underline}
+#mainYT,.player>iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:900px){
+  .hnav{right:16px;bottom:22px}.hdots{display:none}
+    .pblocked{flex-direction:column;gap:12px}.pposter{height:60%}.ptext{text-align:center;align-items:center}
+}
+
+/* ---------- Cadre din film, când trailerul nu rulează ---------- */
+.hbg .still{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transition:opacity 1.4s ease;transform-origin:60% 40%}
+.hbg .still.on{opacity:1;animation:kenburns 9s ease-out forwards}
+#heroPlayer,.hbg iframe{z-index:1}
+.hbg::after{z-index:2}
+.hbg{z-index:0}
+
+.vbadge.vpop{background:#fff;color:#111}
+#s2 .vbadge{display:block}
