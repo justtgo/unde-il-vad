@@ -148,7 +148,7 @@ function renderChips(){
    Primul film e alegerea developerului (din config, Kill Bill),
    apoi topul săptămânii: cele mai populare 10 filme. Dacă trailerul pornește, rulează pe fundal;
    dacă e blocat sau browserul nu-l lasă, rămâne imaginea filmului. */
-let heroList=[FEATURED_ID],heroCur=0,heroYT=null,heroReady=false,heroKeys=[],heroIdx=0,
+let heroFadeAt=0,heroList=[FEATURED_ID],heroCur=0,heroYT=null,heroReady=false,heroKeys=[],heroIdx=0,
     heroPlaying=false,heroVisible=true,muted=true,slideTimer,autoTimer,heroToken=0;
 const SLIDE_NO_VIDEO=9000,SLIDE_WITH_VIDEO=25000;
 let stillTimer,stillList=[],stillIdx=0,stillLayer=0;
@@ -156,9 +156,16 @@ function showStill(path){
   const layers=document.querySelectorAll('#hbg .still');
   stillLayer=1-stillLayer;
   const el=layers[stillLayer],other=layers[1-stillLayer];
-  el.style.backgroundImage=`url(${BIG}${path})`;
-  el.classList.remove('on');void el.offsetWidth;el.classList.add('on');
-  other.classList.remove('on');
+  /* imaginea nouă se încarcă întâi, apoi apare, ca să nu se vadă un ecran gol */
+  const img=new Image();
+  img.onload=img.onerror=()=>{
+    el.style.backgroundImage=`url(${BIG}${path})`;
+    el.classList.remove('on','kb');void el.offsetWidth;
+    el.classList.add('kb','on');
+    /* cel vechi doar se estompează; zoom-ul lui continuă, deci nu mai „sare” */
+    other.classList.remove('on');
+  };
+  img.src=BIG+path;
 }
 function startStills(list){
   clearInterval(stillTimer);stillList=list||[];stillIdx=0;
@@ -202,13 +209,17 @@ async function goHero(i){
   heroCur=(i+heroList.length)%heroList.length;
   const id=heroList[heroCur];
   clearTimeout(slideTimer);clearTimeout(autoTimer);
+  if($('hbg').classList.contains('playing'))heroFadeAt=Date.now();
   heroPlaying=false;$('hbg').classList.remove('playing');$('heroPlay').hidden=true;
   if(heroYT&&heroReady){try{heroYT.pauseVideo()}catch(e){}}
   renderDots();
   $('hcontent').classList.add('fade');
+  const fadeStart=Date.now();
   try{
     const [f,ro,keys,pics]=await Promise.all([info(id),prov(id),trailerKeys(id),stills(id)]);
     if(token!==heroToken)return;
+    /* textul vechi are timp să dispară lin, chiar dacă datele noi vin instant */
+    const wait=420-(Date.now()-fadeStart);if(wait>0){await new Promise(r=>setTimeout(r,wait));if(token!==heroToken)return}
     /* cadrele din film apar imediat și se succed cu zoom lent, până pornește trailerul */
     const list=pics.length?pics:(f.backdrop_path?[f.backdrop_path]:[]);
     startStills(list);
@@ -235,6 +246,8 @@ async function playHeroKey(token){
   const YT=await ytApi;
   if(token!==heroToken)return;
   if(!YT){dbg('Hero: fără YouTube, rămâne imaginea');settleHero();return}
+  const left=1100-(Date.now()-heroFadeAt);
+  if(left>0){await new Promise(r=>setTimeout(r,left));if(token!==heroToken)return}
   const key=heroKeys[heroIdx];dbg('Hero: încerc trailerul',key);
   if(!heroYT){
     heroYT=new YT.Player('heroPlayer',{
