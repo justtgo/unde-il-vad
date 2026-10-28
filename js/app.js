@@ -152,24 +152,34 @@ let heroFadeAt=0,heroList=[FEATURED_ID],heroCur=0,heroYT=null,heroReady=false,he
     heroPlaying=false,heroVisible=true,muted=true,slideTimer,autoTimer,heroToken=0;
 const SLIDE_NO_VIDEO=9000,SLIDE_WITH_VIDEO=25000;
 let stillTimer,stillList=[],stillIdx=0,stillLayer=0;
+/* rezoluție potrivită pentru ecran: clară, dar de câteva ori mai mică decât originalul */
+const STILL='https://image.tmdb.org/t/p/w1280';
+const preloaded={};
+function preload(path){if(path&&!preloaded[path]){const i=new Image();i.src=STILL+path;preloaded[path]=i}return preloaded[path]}
+let stillSeq=0;
 function showStill(path){
-  const layers=document.querySelectorAll('#hbg .still');
-  stillLayer=1-stillLayer;
-  const el=layers[stillLayer],other=layers[1-stillLayer];
+  const seq=++stillSeq;
   /* imaginea nouă se încarcă întâi, apoi apare, ca să nu se vadă un ecran gol */
-  const img=new Image();
-  img.onload=img.onerror=()=>{
-    el.style.backgroundImage=`url(${BIG}${path})`;
+  const img=preload(path);
+  let shown=false;
+  const show=()=>{
+    if(shown||seq!==stillSeq)return;shown=true;
+    const layers=document.querySelectorAll('#hbg .still');
+    stillLayer=1-stillLayer;
+    const el=layers[stillLayer],other=layers[1-stillLayer];
+    el.style.backgroundImage=`url(${STILL}${path})`;
     el.classList.remove('on','kb');void el.offsetWidth;
     el.classList.add('kb','on');
     /* cel vechi doar se estompează; zoom-ul lui continuă, deci nu mai „sare” */
     other.classList.remove('on');
   };
-  img.src=BIG+path;
+  if(img.complete)show();
+  else{img.addEventListener('load',show,{once:true});img.addEventListener('error',show,{once:true});setTimeout(show,1500)}
 }
 function startStills(list){
   clearInterval(stillTimer);stillList=list||[];stillIdx=0;
   if(!stillList.length)return;
+  stillList.forEach(preload);
   showStill(stillList[0]);
   if(stillList.length<2)return;
   stillTimer=setInterval(()=>{
@@ -232,6 +242,9 @@ async function goHero(i){
     $('hcontent').classList.remove('fade');
     heroKeys=keys;heroIdx=0;
     scheduleNext(SLIDE_NO_VIDEO);
+    /* pregătim din timp primul cadru al filmului următor */
+    const nextId=heroList[(heroCur+1)%heroList.length];
+    if(nextId!==id)stills(nextId).then(l=>preload(l[0])).catch(()=>{});
     if(!keys.length){settleHero();return}
     playHeroKey(token);
   }catch(e){
