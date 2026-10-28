@@ -43,7 +43,8 @@ body.locked{overflow:hidden}
 .hero{position:relative;height:100vh;min-height:560px;overflow:hidden;background:#000}
 .hbg{position:absolute;inset:0;background:#000 center/cover no-repeat}
 #heroPlayer,.hbg iframe{position:absolute;top:50%;left:50%;width:100vw;height:56.25vw;min-height:100vh;min-width:177.78vh;transform:translate(-50%,-50%) scale(1.22);pointer-events:none;border:0;opacity:0;transition:opacity 1s cubic-bezier(.4,0,.2,1)}
-.hbg.playing iframe{opacity:1}
+/* trebuie să bată regula cu #heroPlayer de mai sus, altfel trailerul rulează invizibil */
+.hbg.playing #heroPlayer,.hbg.playing iframe{opacity:1}
 .hbg::after{content:"";position:absolute;inset:0;background:
   linear-gradient(90deg,rgba(0,0,0,.85) 0%,rgba(0,0,0,.4) 45%,rgba(0,0,0,.1) 75%),
   linear-gradient(0deg,#000 0%,rgba(0,0,0,.6) 18%,transparent 45%)}
