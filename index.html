@@ -38,10 +38,13 @@
   <!-- ==================== BARA DE SUS ==================== -->
   <div class="topbar" id="topbar"><div class="topin">
     <button class="brand bb" id="brand" aria-label="Înapoi sus">Unde-l văd</button>
-    <label class="search">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="q" type="text" placeholder="Caută un film" aria-label="Caută un film">
-    </label>
+    <div class="searchwrap">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Caută un film" aria-label="Caută un film" autocomplete="off">
+      </label>
+      <div class="suggest" id="suggest" hidden></div>
+    </div>
     <button class="iconbtn" id="sound" aria-label="Pornește sunetul trailerului" title="Sunet">
       <svg id="soundIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg>
     </button>
@@ -50,9 +53,9 @@
 
   <!-- ==================== HERO ==================== -->
   <section class="hero" id="hero">
-    <div class="hbg" id="hbg"><div id="heroPlayer"></div></div>
-    <div class="hcontent">
-      <p class="kick">FILMUL SĂPTĂMÂNII</p>
+    <div class="hbg" id="hbg"><div class="still"></div><div class="still"></div><div id="heroPlayer"></div></div>
+    <div class="hcontent" id="hcontent">
+      <p class="kick" id="hkick">DEVELOPER'S CHOICE</p>
       <h1 class="htitle bb" id="htitle">Kill Bill</h1>
       <div class="hmeta" id="hmeta"></div>
       <p class="hdesc" id="hdesc"></p>
@@ -62,6 +65,13 @@
         <button class="btn g" id="hrestart">Reia trailerul</button>
       </div>
     </div>
+    <div class="hnav">
+      <span class="hcount" id="hcount">1 / 11</span>
+      <button class="harrow" id="hprev" aria-label="Filmul anterior">‹</button>
+      <div class="hdots" id="hdots"></div>
+      <button class="harrow" id="hnext" aria-label="Filmul următor">›</button>
+    </div>
+    <button class="heroplay" id="heroPlay" hidden aria-label="Pornește trailerul"><i></i>Pornește trailerul</button>
     <button class="scrollhint" id="scrollhint" aria-label="Derulează în jos"><i></i>DERULEAZĂ</button>
   </section>
 
