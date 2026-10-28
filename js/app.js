@@ -569,6 +569,8 @@ async function liveSearch(){
 }
 async function doSearch(){
   const q=$('q').value.trim();
+  /* căutarea apare și în adresă, ca linkul să poată fi trimis cuiva */
+  try{const u=new URL(location.href);q?u.searchParams.set('q',q):u.searchParams.delete('q');history.replaceState(null,'',u)}catch(e){}
   if(!q){loadPopular();return}
   $('t1').innerHTML=`Rezultate<small>pentru „${q.replace(/</g,'&lt;')}”</small>`;
   $('s1').innerHTML='';$('e1').innerHTML='<span class="spin"></span>Caut...';
@@ -579,4 +581,7 @@ async function doSearch(){
 document.querySelectorAll('.arrow').forEach(b=>b.onclick=()=>{const s=$(b.dataset.s);s.scrollBy({left:b.dataset.d*s.clientWidth*.85})});
 
 /* ==================== START ==================== */
+/* link cu căutare: ?q=titlu (folosit și de Google) */
+const START_Q=new URLSearchParams(location.search).get('q');
+if(START_Q){$('q').value=START_Q;const waitIntro=()=>introDone?setTimeout(doSearch,400):setTimeout(waitIntro,300);waitIntro()}
 renderChips();renderHonest();loadHonest();renderDots();goHero(0);loadHeroList();loadPopular();openMovie(FEATURED_ID,false);
