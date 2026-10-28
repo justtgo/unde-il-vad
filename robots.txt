@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://roaring-semolina-f9c21d.netlify.app/sitemap.xml

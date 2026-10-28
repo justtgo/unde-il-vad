@@ -19,3 +19,8 @@
   for = "/js/*"
   [headers.values]
     Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/og-image.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
