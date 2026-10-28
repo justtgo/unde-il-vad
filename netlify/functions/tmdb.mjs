@@ -5,7 +5,8 @@
    Folosire din pagină: /api/tmdb?p=/movie/24?language=ro-RO
    ====================================================================== */
 const API = "https://api.themoviedb.org/3";
-const ALLOWED = /^\/(movie|search\/movie|configuration)(\/|\?|$)/;
+/* cererile permise: filme, căutare, topul de pe streaming (discover) și trending */
+const ALLOWED = /^\/(movie|search\/movie|discover\/movie|trending\/movie|configuration)(\/|\?|$)/;
 
 export default async (req) => {
   const token = envVar("TMDB_TOKEN");
