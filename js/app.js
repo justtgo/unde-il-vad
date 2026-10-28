@@ -43,8 +43,9 @@ async function prov(id){if(cache.prov[id])return cache.prov[id];const d=await tm
 async function trailerKeys(id){
   if(cache.key[id])return cache.key[id];
   const order=l=>{
-    const yt=(l||[]).filter(v=>v.site==='YouTube');
-    const rank=v=>(v.type==='Trailer'?0:v.type==='Teaser'?1:2)+(v.official?0:.5);
+    /* doar trailere și teasere: fără clipuri, interviuri, making-of sau Shorts */
+    const yt=(l||[]).filter(v=>v.site==='YouTube'&&(v.type==='Trailer'||v.type==='Teaser')&&!/\b(short|shorts|featurette|behind|interview|clip)\b/i.test(v.name||''));
+    const rank=v=>(v.type==='Trailer'?0:1)+(v.official?0:.5);
     return yt.sort((a,b)=>rank(a)-rank(b)).map(v=>v.key);
   };
   let keys=[];
