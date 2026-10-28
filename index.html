@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ro" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="google" content="notranslate">
+<meta name="color-scheme" content="dark">
+<title>Unde-l văd</title>
+<meta name="description" content="Caută orice film și află pe ce platformă de streaming îl poți vedea în România.">
+<meta property="og:title" content="Unde-l văd?">
+<meta property="og:description" content="Caută orice film și află pe ce platformă de streaming îl poți vedea în România.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="locked">
+
+<!-- ==================== INTRO ==================== -->
+<div id="intro">
+  <div class="crtlayer" id="crt">
+    <div class="bars">
+      <div class="row1"><i style="background:#c0c0c0"></i><i style="background:#c0c000"></i><i style="background:#00c0c0"></i><i style="background:#00c000"></i><i style="background:#c000c0"></i><i style="background:#c00000"></i><i style="background:#0000c0"></i></div>
+      <div class="row2"><i style="background:#0000c0"></i><i style="background:#131313"></i><i style="background:#c000c0"></i><i style="background:#131313"></i><i style="background:#00c0c0"></i><i style="background:#131313"></i><i style="background:#c0c0c0"></i></div>
+      <div class="row3"><div class="seg" style="background:#00214d"></div><div class="seg" style="background:#ffffff"></div><div class="seg" style="background:#32006a"></div><div class="seg" style="background:#131313;flex:3"></div></div>
+    </div>
+    <div class="seed" id="seed"></div>
+    <div class="full" id="full"><b id="txt"></b></div>
+  </div>
+  <div class="glow" id="glow"></div>
+  <div class="waiting" id="waiting">se încarcă trailerul<span class="cursor"></span></div>
+</div>
+<button id="skipIntro">Sari peste intro</button>
+
+<div id="app">
+  <!-- ==================== BARA DE SUS ==================== -->
+  <div class="topbar" id="topbar"><div class="topin">
+    <button class="brand bb" id="brand" aria-label="Înapoi sus">Unde-l văd</button>
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="text" placeholder="Caută un film" aria-label="Caută un film">
+    </label>
+    <button class="iconbtn" id="sound" aria-label="Pornește sunetul trailerului" title="Sunet">
+      <svg id="soundIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg>
+    </button>
+    <span class="region">RO</span>
+  </div></div>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <div class="hbg" id="hbg"><div id="heroPlayer"></div></div>
+    <div class="hcontent">
+      <p class="kick">FILMUL SĂPTĂMÂNII</p>
+      <h1 class="htitle bb" id="htitle">Kill Bill</h1>
+      <div class="hmeta" id="hmeta"></div>
+      <p class="hdesc" id="hdesc"></p>
+      <div class="hwhere"><small>Disponibil pe</small><div class="hlogos" id="hlogos"></div></div>
+      <div class="actions">
+        <button class="btn y" id="hwatch">Unde îl văd</button>
+        <button class="btn g" id="hrestart">Reia trailerul</button>
+      </div>
+    </div>
+    <button class="scrollhint" id="scrollhint" aria-label="Derulează în jos"><i></i>DERULEAZĂ</button>
+  </section>
+
+  <!-- ==================== PAGINA PLAYER ==================== -->
+  <div class="wrap" id="explore">
+    <section class="stage">
+      <div class="player" id="player"></div>
+      <aside class="side" id="side"><p class="empty"><span class="spin"></span>Se încarcă...</p></aside>
+    </section>
+    <div class="under"><small>Abonamentele tale</small><span id="chips" style="display:contents"></span></div>
+
+    <section class="rowsec">
+      <h2 class="rowtitle" id="t1">Trailere populare<small>filme populare acum în România</small></h2>
+      <div class="rowwrap">
+        <button class="arrow l" data-s="s1" data-d="-1" aria-label="Înapoi">‹</button>
+        <div class="strip" id="s1"></div>
+        <button class="arrow r" data-s="s1" data-d="1" aria-label="Înainte">›</button>
+      </div>
+      <p class="empty" id="e1"></p>
+    </section>
+
+    <section class="rowsec">
+      <h2 class="rowtitle">Honest Trailers<small>Screen Junkies</small></h2>
+      <div class="rowwrap">
+        <button class="arrow l" data-s="s2" data-d="-1" aria-label="Înapoi">‹</button>
+        <div class="strip" id="s2"></div>
+        <button class="arrow r" data-s="s2" data-d="1" aria-label="Înainte">›</button>
+      </div>
+    </section>
+  </div>
+
+  <footer>Datele despre filme, trailere și platforme vin de la TMDB și JustWatch, pentru regiunea România. Acest proiect folosește API-ul TMDB dar nu este certificat sau aprobat de TMDB. Videoclipurile sunt redate prin playerul YouTube.</footer>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
