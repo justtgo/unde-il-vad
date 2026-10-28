@@ -8,7 +8,7 @@ const API = "https://api.themoviedb.org/3";
 const ALLOWED = /^\/(movie|search\/movie|configuration)(\/|\?|$)/;
 
 export default async (req) => {
-  const token = process.env.TMDB_TOKEN;
+  const token = envVar("TMDB_TOKEN");
   if (!token) {
     return json({ error: "Lipsește variabila TMDB_TOKEN în setările Netlify." }, 500);
   }
@@ -42,3 +42,14 @@ function json(obj, status) {
 }
 
 export const config = { path: "/api/tmdb" };
+
+/* citește variabila de mediu, pe ambele căi oferite de Netlify */
+function envVar(name) {
+  try {
+    if (globalThis.Netlify && Netlify.env && typeof Netlify.env.get === "function") {
+      const v = Netlify.env.get(name);
+      if (v) return String(v).trim();
+    }
+  } catch (e) {}
+  return (process.env[name] || "").trim();
+}
