@@ -13,7 +13,7 @@ const isHT = t => /^\s*honest trailers?\s*[|:–-]/i.test(t || "") && !/\b(short
 
 export default async () => {
   let newest = [], popular = [], source = "rss";
-  const key = process.env.YOUTUBE_API_KEY;
+  const key = envVar("YOUTUBE_API_KEY");
 
   if (key) {
     try { ({ newest, popular } = await fromApi(key)); source = "api"; } catch (e) { newest = []; popular = []; }
@@ -86,3 +86,14 @@ function decode(s) {
 }
 
 export const config = { path: "/api/honest" };
+
+/* citește variabila de mediu, pe ambele căi oferite de Netlify */
+function envVar(name) {
+  try {
+    if (globalThis.Netlify && Netlify.env && typeof Netlify.env.get === "function") {
+      const v = Netlify.env.get(name);
+      if (v) return String(v).trim();
+    }
+  } catch (e) {}
+  return (process.env[name] || "").trim();
+}
